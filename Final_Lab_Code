@@ -1,0 +1,58 @@
+import pandas as pd
+df = pd.read_csv("/content/Dogecoin Data.zip")
+data= pd.DataFrame(df)
+#----------------------------------------------------------------
+e = pd.read_csv("/content/Elon 2021 Tweets.zip")
+data1 = pd.DataFrame(e)
+dates = []
+
+for index, row in data1.iterrows():
+  if 'doge' in row['tweet'].lower().split():
+    dates.append(row.get('date'))
+
+  elif 'dogecoin' in row['tweet'].lower().split():
+    dates.append(row.get('date'))
+   
+  else:
+    pass
+
+
+dates.append("2021-04-13")
+dates.append("2021-07-13")
+dates.append("2021-07-01")
+dates.append("2021-07-01")
+dates.append("2021-05-25")
+dates.append("2021-05-25")
+dates.append("2021-05-24")
+dates.append("2021-05-24")
+dates.append("2021-05-20")
+dates.append("2021-05-13")
+dates.append("2021-05-11")
+dates.append("2021-05-09")
+dates.append("2021-04-28")
+dates.append("2021-04-17")
+dates.append("2021-01-28")
+dates.append("2021-04-01")
+dates.append("2021-02-04")
+dates.append("2021-12-20")
+dates.append("2021-02-05")
+dates.append("2021-02-04")
+dates.append("2021-04-15")
+dates.append("2021-17-07")
+#we have Date, Open, High, Low, Close, Adj Close, Volume
+df["ElonTweets"]=2501*[0]
+
+
+
+for index in df.index:
+  for d in dates:
+    if df.loc[index,'Date']==d:
+        df.loc[index,'ElonTweets'] +=1
+    else:
+      pass
+#ax = df2.plot.scatter(x="Dates", y= "Tweets", color="DarkBlue", label="Tweets" )
+
+ax = df.tail(365).plot("Date", "ElonTweets", figsize=(10,10), title="Elon Doge Tweet per Day", color="Red", label="Number of Doge Tweets")
+df.tail(365).plot("Date", "Volume", figsize=(10,10), title="Volume of Doge per Day", color ="DarkBlue", label="Volume in Millions")
+
+df.corr(method='pearson')
